@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 1rem;
+}
+
+.heading {
+  width: 50%;
+  margin-left: 2rem;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.nav-list {
+  width: 50%;
+  background-color: #2b2b2b;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  font-size: 1.3rem;
+  z-index: 999;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.nav-items {
+  padding: 1rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.nav-items > a {
+  display: block;
+  color: red;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.nav-items > a:hover {
+  background-color: #555555;
+}
+
+.navbar .nav-list {
+  position: fixed;
+  display: block;
+  height: 100vh;
+  width: 100%;
+  left: -100%;
+  max-width: 400px;
+  top: 0px;
+  padding: 40px 0;
+  text-align: center;
+  background: #222;
+  -webkit-transition: all 1.3s ease;
+  transition: all 1.3s ease;
+}
+
+.nav-items > a {
+  color: #ddd6d6;
+  display: block;
+}
+
+.nav-items > a:hover {
+  color: #f10808;
+}
+
+.nav-items .active > a {
+  color: #f30c0c;
+}
+
+.wid {
+  width: 90%;
+}
+
+@media screen and (max-width: 992px) and (min-width: 768px) {
+  .wid {
+    width: 85%;
+  }
+}
+
+.card-design {
+  border-radius: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  -webkit-transition: all .8s;
+  transition: all .8s;
+  width: 40%;
+  height: 9rem;
+}
+
+.card-design:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.card-modify {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.country {
+  background-color: #fbff00;
+}
+
+.active {
+  background-color: #1adb1a;
+}
+
+.deaths {
+  background-color: red;
+}
+
+.recovered {
+  background-color: #3737b1;
+}
+
+.covid-bg {
+  height: 100vh;
+  width: 100vw;
+  background-color: #8a7979;
+}
+
+@media screen and (max-width: 768px) {
+  .covid-bg {
+    height: 100%;
+  }
+}
+/*# sourceMappingURL=style.css.map */
