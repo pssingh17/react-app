@@ -6,15 +6,13 @@ import Navbar from './Navbar';
 
 export default function Covid() {
     const [state, setstate] = useState("");
-    const [data,setData]=useState([]);
-    console.log(data)
+    
     const getData = async()=>{
         const response = await fetch('https://api.covid19india.org/data.json');
         // console.log(response)
         let resData = await response.json();
         // console.log(resData.statewise);
         setstate(resData.statewise[0]);
-        setData(resData.statewise);
     }
     useEffect(() => {
         getData();

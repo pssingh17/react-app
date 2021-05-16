@@ -19,11 +19,11 @@ export default function CovidStateWise() {
     return (
         <>
         <Navbar />
+            <div className = "container">
             <h1 className="text-center mt-3">STATE WISE CASES</h1>
 
-            
-                <table className="table">
-                    <thead className="thead-dark">
+                <table className="table table-striped ">
+                <thead className="thead-dark">
                         <tr>
                             <th scope="col">State</th>
                             <th scope="col">Confirmed</th>
@@ -35,22 +35,22 @@ export default function CovidStateWise() {
                     <tbody>
                         
                         {
-                         data && data.length > 0 && data.map((item, id) =>
+                         data && data.length > 0 && data.map((item, index) =>
                         <>
-                        <tr key={id}>
+                        <tr key={index}>
                                 <td >{item.state}</td>
                                 <td >{item.confirmed}</td>
                                 <td >{item.active}</td>
                                 <td >{item.recovered}</td>
                                 <td >{item.deaths}</td>
                         </tr>
-                
                         </>)
                 } 
                            
                        
                     </tbody>
                 </table>
+                </div>
 
                 
                 

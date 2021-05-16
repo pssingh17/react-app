@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Contact from './Contact';
 import Navbar from './Navbar';
 import ShowContact from './ShowContact';
+import axios from "axios";
 
 export default function AddContact() {
         const [inpt,newinpt] = useState({
@@ -10,15 +11,22 @@ export default function AddContact() {
             phone:""
         });
     
+        useEffect(() => {
+            axios
+                .get("/api/contactbook/")
+                .then((res) => {
+                    newinptRecords( res.data )
+                })
+                .catch((err) => console.log(err));
+        }, [])
 
-
-        let initData;
-        if(localStorage.getItem("data")=== null){
-            initData = [];
-        }
-        else{
-            initData = JSON.parse(localStorage.getItem("data"));
-        }
+        let initData =[];
+        // if(localStorage.getItem("data")=== null){
+        //     initData = [];
+        // }
+        // else{
+        //     initData = JSON.parse(localStorage.getItem("data"));
+        // }
 
         const [inptRecords,newinptRecords] = useState(initData);
         useEffect(() => {
@@ -42,21 +50,48 @@ export default function AddContact() {
             }
             else{
             const newRecord ={...inpt,id:new Date().getTime().toString()}
-            newinptRecords([...inptRecords, newRecord]);
-            localStorage.setItem("data",JSON.stringify(inptRecords));
-            console.log(inptRecords);
+            // newinptRecords([...inptRecords, newRecord]);
+            // localStorage.setItem("data",JSON.stringify(inptRecords));
+            // console.log(inptRecords);
+            axios
+                .post("/api/contactbook/", newRecord)
+                 .then((res) => {
+                    alert("Contact Added");
+                 axios
+                .get("/api/contactbook/")
+                .then((res) => newinptRecords( res.data ))
+                .catch((err) => console.log(err));
+                 }
+                 );
+            ;
+
             newinpt({
                 name:"",
                 email:"",
                 phone : "",
             });
         }
+        
         };
+
+
         const DelContact = (data)=>{
             console.log("del clicked");
-            newinptRecords(inptRecords.filter((e)=>{
-                return e!==data;
-            }))
+            // newinptRecords(inptRecords.filter((e)=>{
+            //     return e!==data;
+            // }))
+            axios
+            .delete(`/api/contactbook/${data.id}/`)
+                .then((res) => {
+                   
+                axios
+                .get("/api/contactbook/")
+                .then((res) => newinptRecords( res.data ))
+                .catch((err) => console.log(err))
+                
+                }
+                )
+                alert("Delete Done");
             localStorage.setItem("data", JSON.stringify(inptRecords));
         }
 
@@ -80,7 +115,7 @@ export default function AddContact() {
                     <input type="text" name="phone" className="form-control" id="exampleFormControlInput1" placeholder="Phone" value={inpt.phone}  onChange = {inputevent}/>
                 </div>
                 <div className="col-12">
-                    <button className="btn btn-danger" type="submit" >Add Note</button>
+                    <button className="btn btn-danger" type="submit" >Add Contact</button>
                 </div>
 
         </form>

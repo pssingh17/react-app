@@ -13,7 +13,7 @@ export default function TodoItem(props) {
          <div className="card " style={mystyle}>
             {props.todo.map((data,id)=>{
                 return(<div key={id} className ="fl list-group-item"><div className="wid mx-3">{data}</div>
-                <div onClick = {()=>{props.DelTodo(data)}}> <ion-icon size="large" name="close-circle-outline"></ion-icon></div>
+                <div > <ion-icon onClick = {()=>{props.DelTodo(data)}} size="large" name="close-circle-outline"></ion-icon></div>
             </div>)
             })}
             
