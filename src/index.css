@@ -15,6 +15,11 @@ code {
   display: flex;
   flex-wrap: wrap;
 }
+.alert{
+  position: sticky;
+  width: 100%;
+  top: 0;
+}
 @media screen and (max-width:768px) {
   .fl{
     flex-direction: column;
