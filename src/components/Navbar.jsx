@@ -15,8 +15,9 @@ export default function Navbar() {
             PRABHSIMRAN SINGH
         </div> */}
         <ul className="nav-list" style={{left:currwidth}} id="nav-list">
+
             
-                <li className="nav-items"><Link to="/">CONTACT BOOK</Link></li>
+                <li className="nav-items"><Link to="/contact">CONTACT BOOK</Link></li>
                 <li className="nav-items "><Link to="/todo">TODO</Link></li>
                 <li className="nav-items "><Link to="/covid">COVID TRACKER</Link></li>
                 
