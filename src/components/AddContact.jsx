@@ -5,8 +5,8 @@ import ShowContact from './ShowContact';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import AddForm from './AddForm'
 
-import ShowAlert from './ShowAlert'
 
 
 
@@ -149,9 +149,6 @@ export default function AddContact() {
         <div className="container">
         <Alert show={show} variant="success">
           <p>{message}</p>
-          
-
-          
             <Button onClick={() => setShow(false)} variant="outline-success">
               Close
             </Button>
@@ -161,24 +158,7 @@ export default function AddContact() {
        
         
         <Contact />
-        <form className="row" onSubmit = {onSubmits}>
-            <div className="mb-3">
-                <label htmlFor="exampleFormControlInput1" className="form-label">Name</label>
-                <input type="text" name="name" className="form-control" placeholder="Name" value={inpt.name}  onChange = {inputevent}/>
-        </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Email</label>
-                    <input type="text" name="email" className="form-control" placeholder="Email" value={inpt.email}  onChange = {inputevent}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Phone</label>
-                    <input type="text" name="phone" className="form-control"  placeholder="Phone" value={inpt.phone}  onChange = {inputevent}/>
-                </div>
-                <div className="col-12">
-                    <button className="btn btn-danger" type="submit" >Add Contact</button>
-                </div>
-
-        </form>
+        <AddForm onSubmits={onSubmits} inputevent={inputevent} inpt={inpt} />
         <div className = "container fl">
             <ShowContact list={inptRecords} DelContact={DelContact} EditContact= {EditContact}/></div>
             </div>

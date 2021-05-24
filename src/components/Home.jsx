@@ -17,12 +17,12 @@ export default function Home() {
                 return{...prevvalue, [name]:value}
             })
     }
-    const handleLogin =(e)=>{
-        e.preventDefault()
-        state1 = JSON.stringify(state)
-        localStorage.setItem(state1);
+    // const handleLogin =(e)=>{
+    //     e.preventDefault()
+    //     state1 = JSON.stringify(state)
+    //     localStorage.setItem("edit data",state1);
         
-    }
+    // }
 
     return (
         <>
@@ -38,7 +38,7 @@ export default function Home() {
                     <input type="password" className="form-control" id="pass" placeholder="Password" required onChange={handleFields} value={state.password}/>
                 </div>
                 
-                <button type="submit" onClick={handleLogin} className="btn btn-primary">Login</button>
+                <Link to='/contact'><button type="submit" className="btn btn-primary">Login</button></Link>
             </form>
 
 
