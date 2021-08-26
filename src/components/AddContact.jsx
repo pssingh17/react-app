@@ -6,6 +6,8 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import AddForm from './AddForm'
+import Home from './Home';
+import { Redirect } from 'react-router';
 
 
 
@@ -16,19 +18,33 @@ export default function AddContact() {
             email : "",
             phone:""
         });
+        const [loginval,setloginval] =useState(true)
+        let tokens = JSON.parse(localStorage.getItem('tokens'))
+        
+        let tok
+        if (tokens!==null){
+        
+        tok = tokens.accesstoken
+        }
         const[message,setmessage] = useState()
         const [show, setShow] = useState(false);
         
 
         useEffect(() => {
+            if (tokens!==null){
+            const config = {
+                headers: { Authorization: `Bearer ${tok}` }
+            };
+            // console.log("ACCESS "+tok)
             axios
-                .get("/api/contactbook/")
+                .get("/api/contactbook/",config
+                )
                 .then((res) => {
                     newinptRecords( res.data );
                     console.log(res)
                 })
                 .catch((err) => console.log(err));
-        }, [])
+        }}, [])
 
         let initData =[];
         
@@ -66,14 +82,17 @@ export default function AddContact() {
             else{
             const newRecord ={...inpt}
             console.log(newRecord)
+            const config = {
+                headers: { Authorization: `Bearer ${tok}` }
+            };
             // newinptRecords([...inptRecords, newRecord]);
             // localStorage.setItem("data",JSON.stringify(inptRecords));
             // console.log(inptRecords);
             axios
-                .post("/api/contactbook/", newRecord)
+                .post("/api/contactbook/", newRecord,config)
                  .then((res) => {
                  axios
-                .get("/api/contactbook/")
+                .get("/api/contactbook/",config)
                 .then((res) => newinptRecords( res.data ))
                 .catch((err) => console.log(err));
                  }
@@ -95,16 +114,20 @@ export default function AddContact() {
 
 
         const DelContact = (data)=>{
-            console.log("del clicked");
+            console.warn(data.id)
+            console.log("del clicked"+tok);
             // newinptRecords(inptRecords.filter((e)=>{
             //     return e!==data;
             // }))
+            const config = {
+                headers: { Authorization: `Bearer ${tok}` }
+            };
             axios
-            .delete(`/api/contactbook/${data.id}/`)
+            .delete(`/api/contactbook/${data.id}/`,config)
                 .then((res) => {
                    
                 axios
-                .get("/api/contactbook/")
+                .get("/api/contactbook/",config)
                 .then((res) => newinptRecords( res.data ))
                 .catch((err) => console.log(err))
                 
@@ -119,14 +142,18 @@ export default function AddContact() {
         }
         const EditContact = (data)=>{
             console.log("Edit clicked");
-            console.log(data.id)
+            // console.warn(data.id)
+            const config = {
+                headers: { Authorization: `Bearer ${tok}` }
+            };
+            // console.log(data.id)
             
             axios
-            .put(`/api/contactbook/${data.id}/`,data)
+            .put(`/api/contactbook/${data.id}/`,data,config)
                 .then((res) => {
                    
                 axios
-                .get("/api/contactbook/")
+                .get("/api/contactbook/",config)
                 .then((res) => newinptRecords( res.data ))
                 .catch((err) => console.log(err))
                 
@@ -138,13 +165,18 @@ export default function AddContact() {
                 }, 1500);   
              setmessage("CONTACT EDITED")
             localStorage.setItem("data", JSON.stringify(inptRecords));
-           
-            
+                    
         }
 
-
+        const logout =()=>{
+            localStorage.clear()
+            setloginval(false)
+        
+        }
     return (
         <>
+        {loginval ? 
+        (<>
         <Navbar />
         <div className="container">
         <Alert show={show} variant="success">
@@ -155,13 +187,18 @@ export default function AddContact() {
         
         </Alert>
   
-       
-        
+       <button type="button" className='btn btn-primary' onClick={logout}>Logout</button>
         <Contact />
         <AddForm onSubmits={onSubmits} inputevent={inputevent} inpt={inpt} />
         <div className = "container fl">
             <ShowContact list={inptRecords} DelContact={DelContact} EditContact= {EditContact}/></div>
-            </div>
-            </>
+        </div>
+        </>) :
+        (
+            <Redirect to = {{ pathname: "/" }} />
+            )}
+        
+
+        </>
     )
 }
